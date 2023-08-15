@@ -1,8 +1,13 @@
+import Sidebar from "../components/sidebar"
+
 function Home() {
     return (
-        <div>
-            <button>Explore web APIs</button>
-        </div>
+        <>
+            <Sidebar/>
+            <div>
+                <button>Explore web APIs</button>
+            </div>
+        </>
     )
 }
 
