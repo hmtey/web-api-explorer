@@ -17,6 +17,7 @@ div {
 
 #sidebar > div {
     justify-content: space-between;
+    align-items: baseline;
 }
 
 .arrow {
