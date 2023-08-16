@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios';
-import './sidebar.css';
+import { useNavigate } from "react-router-dom"
+import axios from 'axios'
+import './sidebar.css'
 
 /* const dummyData = [
     "1forge.com",
@@ -28,6 +29,7 @@ function useClickOutside(ref, callback) {
 function Sidebar() {
     const [showSidebar, setShowSidebar] = useState(false);
     const [providers, setProviders] = useState({})
+    const navigate = useNavigate();
     const sidebarRef = useRef(null);
     useClickOutside(sidebarRef, () => {
         setShowSidebar(false)
@@ -63,6 +65,10 @@ function Sidebar() {
         ))
     }
 
+    const viewDetails = (service, details) => {
+        navigate("/" + service, { state: details })
+    }
+
     useEffect(() => {
         fetchProviders()
     }, [])
@@ -83,7 +89,7 @@ function Sidebar() {
                                 </button>
                                 {Object.entries(providers[provider].apis).map(api => {
                                     return (
-                                        <button className="api" key={api[0]}>
+                                        <button className="api" key={api[0]} onClick={() => {viewDetails(api[0], api[1])}}>
                                             <img src={api[1]['info']['x-logo']['url']} width="20" height="20"></img>
                                             {api[1].info.title}
                                         </button>
