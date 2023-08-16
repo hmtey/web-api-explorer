@@ -12,6 +12,7 @@ import './sidebar.css';
 ] */
 
 function Sidebar() {
+    const [showSidebar, setShowSidebar] = useState(false);
     const [providers, setProviders] = useState({})
     
     const fetchProviders = async () => {
@@ -29,7 +30,11 @@ function Sidebar() {
         }
     }
 
-    const showApis = (provider) => {
+    const toggleSidebar = () => {
+        setShowSidebar(!showSidebar);
+    }
+
+    const toggleApis = (provider) => {
         setProviders(providers => (
             {...providers, 
                 [provider]: {
@@ -45,26 +50,33 @@ function Sidebar() {
     }, [])
 
     return (
-        <div id="sidebar">
-            Select Provider
-            {Object.keys(providers).map(provider => {
-                return (
-                    <div className={providers[provider].isActive? "wrapper-active" : "wrapper-inactive"} key={provider}>
-                        <button className="provider" onClick={() => showApis(provider)}>
-                            {provider}<i className="arrow"></i>
-                        </button>
-                        {Object.entries(providers[provider].apis).map(api => {
-                            return (
-                                <button className="api" key={api[0]}>
-                                    <img src={api[1]['info']['x-logo']['url']} width="20" height="20"></img>
-                                    {api[1].info.title}
+        <>
+            <button onClick={toggleSidebar}>
+                Explore web APIs
+            </button>
+            {showSidebar && 
+                <div id="sidebar">
+                    Select Provider
+                    {Object.keys(providers).map(provider => {
+                        return (
+                            <div className={providers[provider].isActive? "wrapper-active" : "wrapper-inactive"} key={provider}>
+                                <button className="provider" onClick={() => toggleApis(provider)}>
+                                    {provider}<i className="arrow"></i>
                                 </button>
-                            )
-                        })}
-                    </div>
-                )
-            })}
-        </div>
+                                {Object.entries(providers[provider].apis).map(api => {
+                                    return (
+                                        <button className="api" key={api[0]}>
+                                            <img src={api[1]['info']['x-logo']['url']} width="20" height="20"></img>
+                                            {api[1].info.title}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
+                </div>
+            }
+        </>
     )
 }
 

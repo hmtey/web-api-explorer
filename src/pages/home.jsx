@@ -3,12 +3,9 @@ import './home.css';
 
 function Home() {
     return (
-        <>
+        <div id="main-body">
             <Sidebar/>
-            <div id="main-body">
-                <button>Explore web APIs</button>
-            </div>
-        </>
+        </div>
     )
 }
 
