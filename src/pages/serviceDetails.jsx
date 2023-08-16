@@ -35,9 +35,9 @@ function ServiceDetails(props) {
                             <h4>Url</h4>
                         </div>
                         <div className="contact-specifics">
-                            <p align="left">{state.info.contact? state.info.contact.email : ""}</p>
-                            <p align="left">{state.info.contact? state.info.contact.name : ""}</p>
-                            <p align="left">{state.info.contact? state.info.contact.url : ""}</p>
+                            <p align="left">{state.info.contact? state.info.contact.email ? state.info.contact.email : "-" : "-"}</p>
+                            <p align="left">{state.info.contact? state.info.contact.name ? state.info.contact.name : "-" : "-"}</p>
+                            <p align="left">{state.info.contact? state.info.contact.url? state.info.contact.url : "-" : "-"}</p>
                         </div>
                     </div>
                 </div>
