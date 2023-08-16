@@ -1,9 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import './serviceDetails.css';
+import { useLocation, useNavigate } from 'react-router-dom'
+import './serviceDetails.css'
 
 function ServiceDetails(props) {
-    const { state } = useLocation();
-    const navigate = useNavigate();
+    const { state } = useLocation()
+    const navigate = useNavigate()
 
     const returnHome = () => {
         navigate('/');
@@ -35,9 +35,9 @@ function ServiceDetails(props) {
                             <h4>Url</h4>
                         </div>
                         <div className="contact-specifics">
-                            <p align="left">{state.info.contact? state.info.contact.email : "-"}</p>
-                            <p align="left">{state.info.contact? state.info.contact.name : "-"}</p>
-                            <p align="left">{state.info.contact? state.info.contact.url : "-"}</p>
+                            <p align="left">{state.info.contact? state.info.contact.email : ""}</p>
+                            <p align="left">{state.info.contact? state.info.contact.name : ""}</p>
+                            <p align="left">{state.info.contact? state.info.contact.url : ""}</p>
                         </div>
                     </div>
                 </div>
