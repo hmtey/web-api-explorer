@@ -2,44 +2,68 @@ div {
     display: flex;
 }
 
-#sidebar {
+.sidebar-overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    position: fixed;
+    background-color: black;
+    z-index: 10;
+    transition: all 0.5s;
+    opacity: 75%;
+}
+
+.closed {
+    left: 100%;
+}
+
+.sidebar-overlay.open{
+    left: 0%;
+}
+
+.sidebar {
     padding: 10px 40px;
     flex-direction: column;
     width: 30vw;
     height: 100vh;
     top: 0;
-    right: 0;
     position: fixed;
     background-color: #42607b;
     border: 1px;
     z-index: 10;
     overflow-y: scroll;
+    transition: all 0.5s;
+}
+
+.sidebar.open {
+    left: 65%;
 }
 
 ::-webkit-scrollbar {
     display: none;
   }
 
-div[class*="wrapper"] {
+.wrapper {
+    display: flex;
     padding: 8px 5px;
     border-radius: 5px;
     flex-direction: column;
     transition: all 1s;
 }
 
-.wrapper-inactive {
+.wrapper.inactive {
     min-height: 1.5em;
     overflow: hidden;
     background-color: #42607b;
 }
 
-.wrapper-active {
+.wrapper.active {
     overflow: visible;
     background-color: #1a2632;
     
 }
 
-div[class*="wrapper"] > button {
+.wrapper > button {
     padding: 5px;
     display: flex;
     border: none;
