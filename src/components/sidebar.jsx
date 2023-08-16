@@ -12,24 +12,55 @@ import './sidebar.css';
 ] */
 
 function Sidebar() {
-    const [providers, setProviders] = useState([]);
+    const [providers, setProviders] = useState({})
     
-    useEffect(() => {
-        const fetchData = async () => {
-            let providerData = await axios.get('https://api.apis.guru/v2/providers.json');
-            setProviders(providerData.data.data);
+    const fetchProviders = async () => {
+        let providerData = await axios.get('https://api.apis.guru/v2/providers.json')
+        for (const provider of providerData.data.data) {
+            let apiData = await axios.get('https://api.apis.guru/v2/' + provider + '.json')
+            setProviders(providers => (
+                {...providers, 
+                    [provider]: {
+                        apis: apiData.data.apis,
+                        isActive: false
+                    }
+                }
+            ))
         }
-        
-        fetchData();
+    }
+
+    const showApis = (provider) => {
+        setProviders(providers => (
+            {...providers, 
+                [provider]: {
+                    apis: providers[provider].apis,
+                    isActive: !providers[provider].isActive
+                }
+            }
+        ))
+    }
+
+    useEffect(() => {
+        fetchProviders()
     }, [])
 
     return (
         <div id="sidebar">
             Select Provider
-            {providers.map(provider => {
+            {Object.keys(providers).map(provider => {
                 return (
-                    <div>
-                        {provider}<i class="arrow"></i>
+                    <div className={providers[provider].isActive? "wrapper-active" : "wrapper-inactive"} key={provider}>
+                        <button className="provider" onClick={() => showApis(provider)}>
+                            {provider}<i className="arrow"></i>
+                        </button>
+                        {Object.entries(providers[provider].apis).map(api => {
+                            return (
+                                <button className="api" key={api[0]}>
+                                    <img src={api[1]['info']['x-logo']['url']} width="20" height="20"></img>
+                                    {api[1].info.title}
+                                </button>
+                            )
+                        })}
                     </div>
                 )
             })}
@@ -37,4 +68,4 @@ function Sidebar() {
     )
 }
 
-export default Sidebar;
+export default Sidebar

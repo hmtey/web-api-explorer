@@ -1,11 +1,11 @@
 div {
     display: flex;
-    padding: 10px 25px;
 }
 
 #sidebar {
+    padding: 10px 40px;
     flex-direction: column;
-    width: 40vw;
+    width: 30vw;
     height: 100vh;
     top: 0;
     right: 0;
@@ -13,11 +13,44 @@ div {
     background-color: #42607b;
     border: 1px;
     z-index: 10;
+    overflow-y: scroll;
 }
 
-#sidebar > div {
+::-webkit-scrollbar {
+    display: none;
+  }
+
+div[class*="wrapper"] {
+    padding: 8px 5px;
+    border-radius: 5px;
+    flex-direction: column;
+    transition: all 1s;
+}
+
+.wrapper-inactive {
+    min-height: 1.5em;
+    overflow: hidden;
+    background-color: #42607b;
+}
+
+.wrapper-active {
+    overflow: visible;
+    background-color: #1a2632;
+    
+}
+
+div[class*="wrapper"] > button {
+    padding: 5px;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 1em;
+}
+
+.provider {
+    display: flex;
     justify-content: space-between;
-    align-items: baseline;
 }
 
 .arrow {
@@ -26,5 +59,18 @@ div {
     border: solid white;
     border-width: 0 3px 3px 0;
     display: inline-block;
+    transition: transform 0.5s;
     transform: rotate(45deg);
+}
+
+.wrapper-active .arrow {
+    transform: rotate(-135deg);
+}
+
+.api {
+    justify-content: start;
+}
+
+.api > img {
+    margin-right: 10px;
 }

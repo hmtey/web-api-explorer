@@ -1,10 +1,11 @@
 import Sidebar from "../components/sidebar"
+import './home.css';
 
 function Home() {
     return (
         <>
             <Sidebar/>
-            <div>
+            <div id="main-body">
                 <button>Explore web APIs</button>
             </div>
         </>

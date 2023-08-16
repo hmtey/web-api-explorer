@@ -1,0 +1,10 @@
+#main-body > button {
+    border-radius: 5px;
+    border: 1px solid transparent;
+    padding: 8px 13px;
+    font-size: 1em;
+    font-family: inherit;
+    background-color: #00a1d4;
+    color: white;
+    cursor: pointer;
+  }
