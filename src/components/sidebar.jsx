@@ -38,17 +38,6 @@ function Sidebar() {
     
     const fetchProviders = async () => {
         let providerData = await axios.get('https://api.apis.guru/v2/providers.json')
-        /* for (const provider of providerData.data.data) {
-            let apiData = await axios.get('https://api.apis.guru/v2/' + provider + '.json')
-            setProviders(providers => (
-                {...providers, 
-                    [provider]: {
-                        apis: apiData.data.apis,
-                        isActive: false
-                    }
-                }
-            ))
-        } */
         setProviders(providerData.data.data)
     }
 
@@ -57,21 +46,25 @@ function Sidebar() {
     }
 
     const toggleApis = async (provider) => {
-        let apiData = await axios.get('https://api.apis.guru/v2/' + provider + '.json')
-        setProviderDetails(providers => (
-            {...providerDetails, 
+        if (providerDetails.hasOwnProperty(provider)) {
+            setProviderDetails(providers => ({
+                ...providers,
                 [provider]: {
-                    apis: apiData.data.apis,
-                    isActive: true
+                    apis: providerDetails[provider].apis,
+                    isActive: !providerDetails[provider].isActive
                 }
-            }
-        ))
-        console.log({...providerDetails, 
-            [provider]: {
-                apis: apiData.data.apis,
-                isActive: true
-            }
-        })
+            }))
+        } else {
+            let apiData = await axios.get('https://api.apis.guru/v2/' + provider + '.json')
+            setProviderDetails(providers => (
+                {...providerDetails, 
+                    [provider]: {
+                        apis: apiData.data.apis,
+                        isActive: true
+                    }
+                }
+            ))
+        }
     }
 
     const viewDetails = (service, details) => {
@@ -92,18 +85,18 @@ function Sidebar() {
                     Select Provider
                     {providers.map(provider => {
                         return (
-                            <div className="wrapper" key={provider}>
+                            <div className={providerDetails[provider] && providerDetails[provider].isActive ? "wrapper active" : "wrapper inactive"} key={provider}>
                                 <button className="provider" onClick={() => toggleApis(provider)}>
                                     {provider}<i className="arrow"></i>
                                 </button>
-                                {/* {Object.entries(providers[provider].apis).map(api => {
+                                {providerDetails[provider] && Object.entries(providerDetails[provider].apis).map(api => {
                                     return (
                                         <button className="api" key={api[0]} onClick={() => {viewDetails(api[0], api[1])}}>
                                             <img src={api[1]['info']['x-logo']['url']} width="20" height="20"></img>
                                             {api[1].info.title}
                                         </button>
                                     )
-                                })} */}
+                                })}
                             </div>
                         )
                     })}
