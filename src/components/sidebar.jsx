@@ -47,16 +47,17 @@ function Sidebar() {
 
     const toggleApis = async (provider) => {
         if (providerDetails.hasOwnProperty(provider)) {
-            setProviderDetails(providers => ({
-                ...providers,
-                [provider]: {
-                    apis: providerDetails[provider].apis,
-                    isActive: !providerDetails[provider].isActive
+            setProviderDetails(providers => (
+                {...providers,
+                    [provider]: {
+                        apis: providerDetails[provider].apis,
+                        isActive: !providerDetails[provider].isActive
+                    }
                 }
-            }))
+            ))
         } else {
             let apiData = await axios.get('https://api.apis.guru/v2/' + provider + '.json')
-            setProviderDetails(providers => (
+            setProviderDetails(providerDetails => (
                 {...providerDetails, 
                     [provider]: {
                         apis: apiData.data.apis,
